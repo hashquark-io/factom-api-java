@@ -1,26 +1,28 @@
 ## Factom sdk 
 
-Java client implementation of the [Factom web service api](https://docs.factom.com/api), and we add some external convenient functions.
+<a href="./README.md">English README</a>
 
- - create new chain
- - add entry
- - transfer factoshis 
+该项目是[Factom Web Service API](https://docs.factom.com/api)的一个Java实现， 同时添加了一些便捷方法。
+
+ - 创建新链
+ - 添加条目
+ - 账户间转账
 
 ___
 
-### Building
+### 项目构建
 
-This project is built with Apache Maven.  *Mininum compatible version of Java is 1.8.* 
+该项目是使用Apache Maven作为构建工具，  **最小JDK版本为1.8。** 
 
-To build:
+构建命令:
 
 `$ mvn clean install`
 
 
-### Basic Usage
+### 基本使用
 
 
-Create `CloseableFactomClient` instance:
+创建客户端  `CloseableFactomClient` 实例：
 ```java
 String factomdURI = "fatomd server uri";
 String walletdURI = "walletd server uri";
@@ -28,7 +30,7 @@ CloseableFactomClient client = FactomClients.create(FactomURI.create(factomdURI,
 ```
 
 
-Create new chain:
+创建新链：
 
 ```java
 String ecAddress = "EC2xFxCzppZD1wjetxCPdLsTd3xbs8BTQKny63GnuEGDLAgXLu8z";
@@ -37,7 +39,7 @@ EntryInfo entryInfo = client.addChain(composeChainParam);
 ``` 
 
 
-Save entry with:
+创建新条目：
 
 ```java
 String chainId = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
@@ -47,7 +49,7 @@ EntryInfo entryInfo = client.addEntry(entryParam);
 ```
 
 
-Buy Entry Credit:
+购买条目信用：
 ```java
 String factoidAddress = "FA2jK2HcLnRdS94dEcU27rF3meoJfpUcZPSinpb7AwQvPRY6RL1Q";
 String ecAddress = "EC2xFxCzppZD1wjetxCPdLsTd3xbs8BTQKny63GnuEGDLAgXLu8z";
@@ -55,16 +57,17 @@ client.buyEntryCredit(factoidAddress, ecAddress, 8000L);
 ```
 
 
-Transfer factoshis (one input to one output):
+账户之间转 factoshis (一个输入账户一个输出账户)：
 
 ```java
 String inputAddress1 = "FA2jK2HcLnRdS94dEcU27rF3meoJfpUcZPSinpb7AwQvPRY6RL1Q";
 String outputAddress1 = "FA2hjXMAkwJjNFn9512AMExEtUU55QB7KdcFbm3MrMNrS5SxBw81";
+
 client.transferFactoshis(inputAddress1, outputAddress1, 80000000L,  true);
 ```
 
 
-Transfer factoshis (muiltple inputs to muiltple ouputs):
+账户之间转 factoshis (多个输入账户多个输出账户)：
 
 ```java
 String inputAddress1 = "FA2jK2HcLnRdS94dEcU27rF3meoJfpUcZPSinpb7AwQvPRY6RL1Q";
@@ -79,7 +82,7 @@ String txId = client.transferFactoshis(Arrays.asList(input1, input2), Arrays.asL
 ```
 
 
-Use `FluentWait<T>`:
+使用 `FluentWait<T>`工具类轮询条件等待：
 
 ```java
 //loop retrive entry by entryhash, throw TimeOutException if 30 seconds timed out.
